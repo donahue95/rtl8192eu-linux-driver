@@ -1,0 +1,29 @@
+--- rtl8192eu-linux-driver-master/os_dep/linux/rtw_android.c	2015-08-18 15:10:30.000000000 -0400
++++ rtl8192eu-linux-driver-master.fix/os_dep/linux/rtw_android.c	2015-09-27 01:28:37.000000000 -0400
+@@ -332,7 +332,7 @@
+ 	}
+ }
+ #endif //CONFIG_PNO_SUPPORT
+-
++#if LINUX_VERSION_CODE < KERNEL_VERSION(4,0,0)
+ int rtw_android_cmdstr_to_num(char *cmdstr)
+ {
+ 	int cmd_num;
+@@ -342,7 +342,17 @@
+ 
+ 	return cmd_num;
+ }
++#else
++int rtw_android_cmdstr_to_num(char *cmdstr)
++{
++	int cmd_num;
++	for(cmd_num=0 ; cmd_num<ANDROID_WIFI_CMD_MAX; cmd_num++)
++		if(0 == strncasecmp(cmdstr , android_wifi_cmd_str[cmd_num], strlen(android_wifi_cmd_str[cmd_num])) )
++			break;
+ 
++	return cmd_num;
++}
++#endif
+ int rtw_android_get_rssi(struct net_device *net, char *command, int total_len)
+ {
+ 	_adapter *padapter = (_adapter *)rtw_netdev_priv(net);
