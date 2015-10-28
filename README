@@ -1,0 +1,10 @@
+Compile errors eliminated for kernels 4.3-rc6 (and 4.2.4). Corrected?? 
+/data/rtl892eu-4.x/include/rtw_debug.h:187:19: error: void value not ignored as it ought to be
+#define seqdump seq_printf
+^
+/data/rtl892eu-4.x/include/rtw_debug.h:240:7: note: in expansion of macro ‘_seqdump’
+if(_seqdump(sel, fmt, ##arg)) /rtw_warn_on(1)/; \
+^
+seq_printf returns void, if statement can't handle void, I eliminated if and a set of parens.
+Correct?? Don't know. Does driver work? Don't know, don't have an rtl8192eu dongle. Please speak
+up if you know.  
