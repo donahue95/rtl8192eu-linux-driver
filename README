@@ -8,3 +8,12 @@ if(_seqdump(sel, fmt, ##arg)) /rtw_warn_on(1)/; \
 seq_printf returns void, if statement can't handle void, I eliminated if and a set of parens.
 Correct?? Don't know. Does driver work? Don't know, don't have an rtl8192eu dongle. Please speak
 up if you know.  
+
+DKMS
+----------
+The module can be installed with DKMS. Make sure to install the `dkms` package first.
+
+    sudo dkms add ./rtl8192eu-linux-driver
+    sudo dkms build 8192eu/1.0
+    sudo dkms install 8192eu/1.0
+
